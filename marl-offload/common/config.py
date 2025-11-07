@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import Dict, List
 
 # Trainer wiring (unchanged)
-TRAINER_IP = "10.0.1.10"
+TRAINER_IP = "172.31.82.206"
 ZMQ_PORT_ROLLOUT = 5555
 ZMQ_PORT_CMD     = 5556
 
@@ -12,7 +12,7 @@ AGENT_PROFILES= {"drone_0":"low","drone_1":"low","drone_2":"high","drone_3":"hig
 # === Workload: VIDEO tasks (one file = one task) ===
 # Each agent will pick from its local /data/videos folder by default.
 # You can pin specific files per agent if you want deterministic mapping:
-VIDEO_ROOT = "/data/videos"
+VIDEO_ROOT = "data/videos"
 # Optional: per-agent explicit lists (leave {} to auto-scan VIDEO_ROOT on each agent)
 AGENT_VIDEOS: Dict[str, List[str]] = {
     "drone_0": ["DJI_0604_30s.MOV","DJI_0604_45s.MOV"],

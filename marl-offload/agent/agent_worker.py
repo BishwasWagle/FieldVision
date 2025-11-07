@@ -85,3 +85,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# export AGENT_ID=drone_2; export ALGO=MAPPO; python -m agent.agent_worker
