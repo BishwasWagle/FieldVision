@@ -95,21 +95,23 @@ def run_ppo_trainer():
                 continue
 
             # ---- Log a row for plotting/CSV (safe defaults if missing)
+                        # ---- Log a row for plotting/CSV (safe defaults if missing)
             append_rollout_record({
                 "agent":    msg.get("agent",""),
-                "step":     int(msg.get("step", step_counter)),
+                "step":     int(msg.get("step", 0)),
                 "reward":   float(msg.get("reward", 0.0)),
-                "latency_ms": float(msg.get("latency_ms", 0.0)),
-                "regime":   msg.get("regime","unknown"),
-                "action":   int(msg.get("action", 0)),
-                "priority": msg.get("priority",""),
-                "succ":     bool(msg.get("succ", False)),
-                "tardy_ms": float(msg.get("tardy_ms", 0.0)),
-                "algo":     "PPO",
-                # optional extras if agents send them:
-                "video":      msg.get("video",""),
-                "payload_mb": float(msg.get("payload_mb", 0.0)),
-                "duration_s": float(msg.get("duration_s", 0.0)),
+
+                # keep raw values; if missing, let them be None -> becomes NaN in CSV
+                "latency_ms": msg.get("latency_ms", None),
+                "regime":     msg.get("regime", None),
+                "priority":   msg.get("priority", None),
+                "succ":       msg.get("succ", None),
+                "tardy_ms":   msg.get("tardy_ms", None),
+
+                "algo":     "MAPPO",   # or "PPO" in ppo_trainer
+                "video":      msg.get("video", None),
+                "payload_mb": msg.get("payload_mb", None),
+                "duration_s": msg.get("duration_s", None),
             })
 
             # ---- Transition

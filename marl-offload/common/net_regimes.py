@@ -40,5 +40,6 @@ def sample_link_for_agent(agent: str, link_key: str, regime: str):
     return max(bw, 0.01), rtt, min(loss, 0.99)
 
 def transfer_time_seconds(size_mb, bandwidth_mbps, latency_ms):
-    """RTT + transmit time (simple model)"""
-    return (latency_ms/1000.0) + (size_mb / max(1e-6, bandwidth_mbps))
+    # Convert Mbps -> MB/s by dividing by 8
+    bw_MBps = max(1e-6, bandwidth_mbps) / 8.0
+    return (latency_ms / 1000.0) + (size_mb / bw_MBps)
