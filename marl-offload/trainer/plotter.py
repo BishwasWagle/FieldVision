@@ -6,6 +6,12 @@ import matplotlib.pyplot as plt
 from common.config import LOG_CSV, FIG_DIR
 from common.utils import ensure_dirs
 
+
+RUN_DIR = os.environ.get("RUN_DIR", "./runs/latest")
+LOG_CSV = os.environ.get("LOG_CSV", os.path.join(RUN_DIR, "marl_logs.csv"))
+FIG_DIR = os.environ.get("FIG_DIR", os.path.join(RUN_DIR, "figs"))
+
+
 def _safe_read_log():
     if not os.path.exists(LOG_CSV) or os.path.getsize(LOG_CSV) == 0:
         return None

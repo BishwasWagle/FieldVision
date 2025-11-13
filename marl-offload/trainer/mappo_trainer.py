@@ -5,7 +5,7 @@ from collections import defaultdict, deque
 from common.message import trainer_pull_ctx
 from common.broadcast import state_to_blob
 from common.config import CKPT_DIR, AGENT_NAMES, N_ACTIONS, ROLLOUT_HORIZON
-from common.utils import ensure_dirs
+from common.utils import ensure_dirs, init_run_dir
 from common.models import ActorDiscrete, CentralCritic
 
 from trainer.aggregator import append_rollout_record, aggregate_to_csv
@@ -42,6 +42,10 @@ def compute_gae(rewards, values, dones, gamma=GAMMA, lam=LAMBDA):
 def run_mappo_trainer():
     ensure_dirs(CKPT_DIR)
     device = torch.device("cpu")
+    
+    # CREATE A NEW RUN FOLDER AND POINT EVERYTHING TO IT
+    paths = init_run_dir("MAPPO")
+    print(f"[MAPPO] Writing to {paths['RUN_DIR']}")
 
     actor = ActorDiscrete(OBS_DIM, N_ACTIONS).to(device)
     critic = CentralCritic(GLOBAL_DIM).to(device)

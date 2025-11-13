@@ -2,3 +2,4 @@ venv/
 myvenv/
 __pycache__/
 *.MOV
+runs/

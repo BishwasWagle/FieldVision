@@ -43,6 +43,9 @@ def run_ppo_trainer():
     ensure_dirs(CKPT_DIR)
     device = torch.device("cpu")
 
+    paths = init_run_dir("PPO")
+    print(f"[PPO] Writing to {paths['RUN_DIR']}")
+
     actor = ActorDiscrete(OBS_DIM, N_ACTIONS).to(device)
     critic = Critic(OBS_DIM).to(device)
     opt_actor = torch.optim.Adam(actor.parameters(), lr=LR_ACTOR)
